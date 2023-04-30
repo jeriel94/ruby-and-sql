@@ -64,8 +64,17 @@ puts apple.inspect
 
 # 5. read a row's column value
 
-puts 
+puts apple["url"]
 
 # 6. update a row's column value
 
+amazon = Company.find_by({"name" => "Amazon"})
+puts amazon["url"] = "https://www/amazon.com"
+amazon.save
+
 # 7. delete a row
+
+twitter = Company.find_by({"name" => "Twitter"})
+twitter.destroy
+
+puts "There are #{Company.all.count} companies"
