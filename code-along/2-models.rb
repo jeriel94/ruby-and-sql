@@ -23,13 +23,48 @@ new_company = Company.new
 puts new_company
 
 new_company["name"] = "Apple"
+new_company["city"] = "Cupertino"
+new_company["state"] = "CA"
+new_company["url"] = "https://www.apple.com"
+new_company.save #insert into the table
+
 puts new_company.inspect #gives you all data related to this
+
+puts "There are #{Company.all.count} companies" # will  now say 1 company
+
+company2 = Company.new
+company2["name"] = "Amazon"
+company2["city"] = "Seattle"
+company2["state"] = "WA"
+company2.save
+
+puts "There are #{Company.all.count} companies"
+
+company3 = Company.new
+company3["name"] = "Twitter"
+company3["city"] = "San Francisco"
+company3["state"] = "CA"
+company3.save
+
+puts "There are #{Company.all.count} companies"
 
 # 3. query companies table to find all row with California company
 
+all_companies = Company.all
+puts all_companies.inspect
+
+cali_companies = Company.where({"state" =>"CA"})
+puts cali_companies.inspect
+
+puts "CA Companies: #{cali_companies.count}"
+
 # 4. query companies table to find single row for Apple
+apple = Company.find_by({"name" => "Apple"})
+puts apple.inspect
 
 # 5. read a row's column value
+
+puts 
 
 # 6. update a row's column value
 
