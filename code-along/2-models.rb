@@ -18,6 +18,13 @@ puts "There are #{Company.all.count} companies" #acts like an array
 
 # 2. insert new rows in companies table
 
+new_company = Company.new
+
+puts new_company
+
+new_company["name"] = "Apple"
+puts new_company.inspect #gives you all data related to this
+
 # 3. query companies table to find all row with California company
 
 # 4. query companies table to find single row for Apple
