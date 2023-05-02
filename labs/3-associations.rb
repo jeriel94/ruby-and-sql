@@ -17,6 +17,31 @@ Activity.destroy_all
 # 1. insert 3 rows in the activities table with relationships to
 # a single salesperson and 2 different contacts
 
+ben = Salesperson.find_by({"first_name" => "Ben", "last_name" => "Block"})
+tim = Contact.find_by({"first_name" => "Tim", "last_name" => "Cook"}) #find_by for single rows
+
+activity = Activity.new
+activity["notes"] = "had coffee in Cupertino"
+activity["salesperson_id"] = ben["id"]
+activity["contact_id"] = tim["id"]
+activity.save
+
+activity = Activity.new
+activity["notes"] = "caught up over FT"
+activity["salesperson_id"] = ben["id"]
+activity["contact_id"] = tim["id"]
+activity.save
+
+bezos = Contact.find_by({"first_name" => "Jeff", "last_name" => "Bezos"})
+
+activity = Activity.new
+activity["notes"] = "cold called and asked for a trip to the moon"
+activity["salesperson_id"] = ben["id"]
+activity["contact_id"] = bezos["id"]
+activity.save
+
+puts "Activities: #{Activity.all.count}."
+
 # 2. Display all the activities between the salesperson used above
 # and one of the contacts (sample output below):
 
@@ -24,6 +49,9 @@ Activity.destroy_all
 # Activities between Ben and Tim Cook:
 # - quick checkin over facetime
 # - met at Cupertino
+
+activities = Activity.where({"salesperson_id" => ben["id"], "contact_id" => tim["id"]})
+puts activities.inspect
 
 # CHALLENGE:
 # 3. Similar to above, but display all of the activities for the salesperson
@@ -34,6 +62,10 @@ Activity.destroy_all
 # Tim Cook - quick checkin over facetime
 # Tim Cook - met at Cupertino
 # Jeff Bezos - met at Blue Origin HQ
+puts "Acitivites between #{ben["first_name"]} #{ben["last_name"]} and Tim Cook"
+for activity in activities
+    puts activity["notes"]
+end
 
 # 3a. Can you include the contact's company?
 
